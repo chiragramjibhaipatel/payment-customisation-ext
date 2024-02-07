@@ -1,4 +1,4 @@
-query RunInput{
+query RunInput {
   cart {
     cost {
       totalAmount {
@@ -6,8 +6,16 @@ query RunInput{
       }
     }
   }
-  paymentMethods{
+  paymentMethods {
     id
     name
+  }
+  paymentCustomization {
+    metafield(
+      namespace: "payment-customization"
+      key: "function-configuration"
+    ) {
+      value
+    }
   }
 }
