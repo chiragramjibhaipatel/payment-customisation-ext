@@ -17,9 +17,31 @@ const NO_CHANGES = {
  * @returns {FunctionRunResult}
  */
 export function run(input) {
-  const configuration = JSON.parse(
-    input?.paymentCustomization?.metafield?.value ?? "{}"
-  );
+  console.error('input', input)
 
-  return NO_CHANGES;
+  const cartTotal = parseFloat(input.cart.cost.totalAmount.amount ?? "0.0")
+  if(cartTotal < 100){
+    console.error('cartTotal is less than 100')
+    return NO_CHANGES
+  } 
+  console.error('cartTotal is greater than or equal to 100')
+  const hidePaymentMethod = input.paymentMethods.find(method => method.name.includes('Cash on Delivery'))
+  if (!hidePaymentMethod) {
+    console.error('No payment method found with name "Cash on Delivery"')
+    return NO_CHANGES;
+  }
+
+  console.error('Payment method found with name Cash on Delivery, will be hidden')
+
+
+  return {
+    operations: [
+      {
+        hide: {
+          paymentMethodId: hidePaymentMethod.id
+        }
+      }
+    ]
+  }
+
 };
