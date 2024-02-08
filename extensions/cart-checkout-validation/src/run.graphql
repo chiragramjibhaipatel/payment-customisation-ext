@@ -11,4 +11,7 @@ query RunInput{
       }
     }
   }
+  buyerJourney{
+    step
+  }
 }

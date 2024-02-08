@@ -10,6 +10,9 @@
  * @returns {FunctionRunResult}
  */
 export function run(input) {
+
+  console.error("Input", JSON.stringify(input, null, 2));
+
   const error = {
     localizedMessage: "for orders greater then 500, customer must have at least 3 orders",
     target: "cart",
@@ -24,6 +27,11 @@ export function run(input) {
     const numberOfOrders = input.cart.buyerIdentity?.customer?.numberOfOrders ?? 0
     if(numberOfOrders > 3){
       errors.push(error);
+      errors.push({
+        localizedMessage: "$.cart.buyerIdentity.email message email",
+        target: "$.cart.buyerIdentity.email",
+      });
+      
     }
   }
   return {
